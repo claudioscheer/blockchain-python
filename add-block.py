@@ -11,11 +11,10 @@ def get_blockchain():
 
 
 def get_last_block(blockchain):
+    prevs = [o["prev"] for o in blockchain.values()]
     for key, value in blockchain.items():
-        for key1, value1 in blockchain.items():
-            if key == key1 or key == value1["prev"]:
-                continue
-        return key, value
+        if not key in prevs:
+            return key, value
 
 
 def get_block(blockchain, data):

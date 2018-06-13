@@ -10,7 +10,7 @@ def get_blockchain():
 
 
 def create_init_block():
-    block = {"prev": "banco", "data": "inter"}
+    block = {"prev": "genesis", "data": "singularity"}
     return get_hash_sha1(block["prev"] + block["data"]), block
 
 
