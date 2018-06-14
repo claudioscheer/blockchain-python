@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 from sys import argv
-from lib.utils import json_to_dict, save_file_json
-from lib.hash import get_hash_sha1
+from lib.utils import json_to_dict, save_file_json, get_block_hash
 
 BLOCKCHAIN_FILE_NAME = "blockchain.json"
 
@@ -19,8 +18,14 @@ def get_last_block(blockchain):
 
 def get_block(blockchain, data):
     hash, _ = get_last_block(blockchain)
-    block = {"prev": hash, "data": data}
-    return get_hash_sha1(block["prev"] + block["data"]), block
+    block = {"prev": hash, "data": data, "nounce": 0, "name": "claudio"}
+    nounce = -1
+    while 1:
+        nounce += 1
+        block["nounce"] = nounce
+        hash = get_block_hash(block)
+        if hash.startswith("000000"):
+            return hash, block
 
 
 if __name__ == "__main__":
